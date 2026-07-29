@@ -17,8 +17,7 @@ This hands-on workshop demonstrates how **IBM Bob**, **IBM Planning Analytics (T
 | # | Session | Duration |
 |---|---------|----------|
 | — | Welcome, introductions, and objectives | 10 min |
-| [Deck](https://ibm.box.com/s/ajwak3kycul3n3oj3m5otehp18cd0flq) | watsonx Orchestrate overview | 30 min |
-| [Deck](https://ibm.box.com/s/tyu4uivnxfiuiwfqsl41kd8i5f7knkam) | Bob overview & Demo: Planning Analytics assistant experience | 30 min |
+| [Deck](https://ibm.box.com/s/j9r9zqss6r3fd0mllaw5xkh8mylomm99) | Bob overview & Demo: Planning Analytics assistant experience | 30 min |
 | [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 30 min |
 | — | *Break* | *15 min* |
 | [Lab 1](./lab-01-bob-planning-analytics-mcp/README.md) | **Hands-On Lab 1:** Bob + Planning Analytics via MCP | 60 min |
