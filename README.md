@@ -6,7 +6,7 @@
 
 This hands-on workshop demonstrates how **IBM Bob**, **IBM Planning Analytics (TM1)**, and **IBM watsonx Orchestrate** work together to build intelligent, AI-powered planning experiences. Participants will move from foundational concepts to working labs — finishing the day with practical skills they can apply to their own Finance & Planning use cases.
 
-**Duration:** 6 hours (full day)
+**Duration:** 3 hours 
 **Format:** Instructor-led with hands-on lab exercises
 **Level:** Intermediate
 
@@ -17,8 +17,8 @@ This hands-on workshop demonstrates how **IBM Bob**, **IBM Planning Analytics (T
 | # | Session | Duration |
 |---|---------|----------|
 | — | Welcome, introductions, and objectives | 5 min |
-| [Deck](https://ibm.box.com/s/j9r9zqss6r3fd0mllaw5xkh8mylomm99) | Bob overview & Demo: Planning Analytics assistant experience | 20 min |
-| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 20 min |
+| [Deck](https://ibm.box.com/s/j9r9zqss6r3fd0mllaw5xkh8mylomm99) | Bob overview & Demo: Planning Analytics assistant experience | 15 min |
+| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 15 min |
 | [Lab 1](./lab-01-bob-planning-analytics-mcp/README.md) | **Hands-On Lab 1:** Bob + Planning Analytics via MCP | 60 min |
 | — | *Break* | *15 min* |
 | [Lab 2](./lab-02-fpa-variance-autopilot/README.md) | **Hands-On Lab 2:** FP&A Variance Autopilot | 60 min |
