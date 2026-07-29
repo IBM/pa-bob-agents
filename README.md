@@ -16,14 +16,12 @@ This hands-on workshop demonstrates how **IBM Bob**, **IBM Planning Analytics (T
 
 | # | Session | Duration |
 |---|---------|----------|
-| — | Welcome, introductions, and objectives | 10 min |
-| [Deck](https://ibm.box.com/s/j9r9zqss6r3fd0mllaw5xkh8mylomm99) | Bob overview & Demo: Planning Analytics assistant experience | 30 min |
-| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 30 min |
-| — | *Break* | *15 min* |
+| — | Welcome, introductions, and objectives | 5 min |
+| [Deck](https://ibm.box.com/s/j9r9zqss6r3fd0mllaw5xkh8mylomm99) | Bob overview & Demo: Planning Analytics assistant experience | 20 min |
+| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 20 min |
 | [Lab 1](./lab-01-bob-planning-analytics-mcp/README.md) | **Hands-On Lab 1:** Bob + Planning Analytics via MCP | 60 min |
-| — | Use case overview: FP&A Variance Autopilot | 10 min |
-| — | *Lunch / Break* | *60 min* |
-| [Lab 2](./lab-02-fpa-variance-autopilot/README.md) | **Hands-On Lab 2:** FP&A Variance Autopilot | 90 min |
+| — | *Break* | *15 min* |
+| [Lab 2](./lab-02-fpa-variance-autopilot/README.md) | **Hands-On Lab 2:** FP&A Variance Autopilot | 60 min |
 | [Your Scenario](./session-03-your-scenario/README.md) | Your Scenario — map the pattern to your own use case | 15 min |
 | — | Shareback + Wrap-up, next steps, and Q&A | 10 min |
 
