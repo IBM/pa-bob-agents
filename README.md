@@ -133,6 +133,3 @@ A **multi-agent watsonx Orchestrate system** monitors Planning Analytics for mat
 - [IBM Bob — Getting Started](https://www.ibm.com/products/bob)
 - [IBM Planning Analytics MCP Tools Reference](./lab-01-bob-planning-analytics-mcp/README.md#mcp-tools-reference)
 
----
-
-> **Made with IBM Bob** · Planning Analytics × watsonx Orchestrate Workshop · Version 1.0
