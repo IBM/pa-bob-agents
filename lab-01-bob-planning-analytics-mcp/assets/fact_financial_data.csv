@@ -215,6 +215,10 @@ time_id,account_id,dept_id,scenario_id,version_id,amount,variance_flag,variance_
 2026-01,REV-001,DEPT-APAC-SALES,PY-ACT,V1,285000,0,,ERP Actuals
 2026-01,REV-001,DEPT-LATAM-SALES,BUD,V2,180000,0,,Budget System
 2026-01,REV-001,DEPT-LATAM-SALES,ACT,V1,176000,0,,ERP Actuals
+2026-01,REV-001,DEPT-LATAM-SALES,FC-Q1,V4,185000,0,,FC System
+2026-01,REV-001,DEPT-LATAM-SALES,FC-Q2,V4,178000,0,,FC System
+2026-01,REV-001,DEPT-LATAM-SALES,FC-Q3,V4,176000,0,,FC System
+2026-01,REV-001,DEPT-LATAM-SALES,FC-Q4,V4,176000,0,,FC System
 2026-01,REV-001,DEPT-LATAM-SALES,PY-ACT,V1,158000,0,,ERP Actuals
 2026-01,COGS-001,DEPT-NA-SALES,BUD,V2,145000,0,,Budget System
 2026-01,COGS-001,DEPT-NA-SALES,ACT,V1,168000,1,Steel plate prices rose 14% due to EU tariff changes. $23K unbudgeted raw material overspend. Procurement reviewing alternative suppliers.,ERP Actuals

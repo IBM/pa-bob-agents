@@ -6,13 +6,13 @@
         "version": "1.0.0",
         "contact": {
             "name": "IBM Planning Analytics Workshop",
-            "url": "https://github.com/IBM/stratos-pa-bob-agents"
+            "url": "https://github.com/IBM/pa-bob-agents"
         }
     },
     "servers": [
         {
-            "url": "https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud",
-            "description": "IBM Code Engine — eu-de (Frankfurt)"
+            "url": "https://saleslens-api.2d5zmahcno8r.ca-tor.codeengine.appdomain.cloud",
+            "description": "IBM Code Engine — ca-tor (Toronto)"
         }
     ],
     "security": [

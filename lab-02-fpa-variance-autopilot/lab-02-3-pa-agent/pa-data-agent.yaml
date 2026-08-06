@@ -88,16 +88,16 @@ instructions: >
   - Footer: count of material variances flagged, timestamp
 
 tools:
-  - ibm-pa-tools-tz-cube:get_available_tm1_servers
-  - ibm-pa-tools-tz-cube:list_cubes_with_ai_analysis_metadata
-  - ibm-pa-tools-tz-cube:get_cube_dimensions
-  - ibm-pa-tools-tz-cube:get_cube_sample_members
-  - ibm-pa-tools-tz-cube:get_data_from_data_explorer
-  - ibm-pa-tools-tz-cube:execute_mdx_and_get_view
-  - ibm-pa-tools-tz-cube:get_cubes_that_may_answer_query
-  - ibm-pa-tools-tz-cube:lookup_potential_members
-  - ibm-pa-tools-tz-cube:perform_outlier_detection
-  - ibm-pa-tools-tz-cube:get_outlier_summary
+  - planning-analytics-mcp:get_available_tm1_servers
+  - planning-analytics-mcp:list_cubes_with_ai_analysis_metadata
+  - planning-analytics-mcp:get_cube_dimensions
+  - planning-analytics-mcp:get_cube_sample_members
+  - planning-analytics-mcp:get_data_from_data_explorer
+  - planning-analytics-mcp:execute_mdx_and_get_view
+  - planning-analytics-mcp:get_cubes_that_may_answer_query
+  - planning-analytics-mcp:lookup_potential_members
+  - planning-analytics-mcp:perform_outlier_detection
+  - planning-analytics-mcp:get_outlier_summary
 
 # Lab 2.3 — PA Data Agent
 # Used as sub-agent by fpa-orchestrator-agent (Lab 2.5)

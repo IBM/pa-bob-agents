@@ -45,12 +45,16 @@ instructions: >
       Extract: target period (e.g. 2024-01), departments (all or specific),
       account types (all, revenue only, opex only), analysis objective.
       Default period: most recent period with actuals.
+      Target cube: FPA_Variance on DemoGuide server (always use this — do NOT
+      search for an alternative cube even if FPA_Variance shows is_analyzed: false).
 
     STEP 2 — Get PA data:
       Call pa_data_agent with the target period and scope.
-      Ask it to: "Return budget vs actual for [scope] in FPA_Variance for [period].
-      Flag all material variances."
+      Ask it to: "Return budget vs actual for [scope] in FPA_Variance on DemoGuide
+      for [period] using Version V1. Flag all material variances."
       Wait for the full table before proceeding.
+      NOTE: FPA_Variance is NOT pre-analyzed — pa_data_agent will automatically
+      use execute_mdx_and_get_view with WHERE ([Time].[Time].[period],[Version].[Version].[V1]).
 
     STEP 3 — Route each material variance to the right sub-agent:
       For EACH row flagged as material by pa_data_agent:
@@ -116,58 +120,71 @@ instructions: >
 
   Example output structure:
 
-  📊 FP&A Variance Analysis — January 2024
+  📊 FP&A Variance Analysis — January 2026
 
-  Server: DemoGuide | Cube: FPA_Variance | Period: 2024-01
+  Server: DemoGuide | Cube: FPA_Variance | Period: 2026-01
   Sub-agents: pa_data_agent · crm_context_agent · erp_context_agent
   Analysis time: 5.1 seconds
 
-  MATERIAL VARIANCES DETECTED: 2
+  MATERIAL VARIANCES DETECTED: 3
 
   ─────────────────────────────────────────────────────
-  🔴 HIGH — NA Sales | Enterprise Software Revenue
+  🔴 HIGH — DEPT-NA-SALES | REV-001 (Finished Goods Revenue)
   ─────────────────────────────────────────────────────
-    Budget: $500,000 | Actual: $325,000
-    Variance: -$175,000 (-35.0%) ← Unfavorable
+    Budget: $620,000 | Actual: $445,000
+    Variance: -$175,000 (-28.2%) ← Unfavorable
 
-    Root Cause: Two enterprise deals totalling $200K slipped from January
-    to February. Acme Corp ($120K) delayed by customer procurement process;
-    TechStart ($80K) impacted by client budget freeze. Both remain in
-    pipeline with high close probability. [source: CRM]
+    Root Cause: Two major orders slipped to February — Acme Corp $120K
+    (procurement approval delayed) and TechStart $80K (customer capital
+    freeze). Timing-related variance, not structural. [source: CRM]
 
     Classification: Timing-related slippage — no structural issue
-    Forecast Action: None required — deals expected in February
+    Forecast Action: None required — orders expected in February
     CRM Action: Confirm Feb close dates for Acme Corp + TechStart
 
   ─────────────────────────────────────────────────────
-  🟡 MEDIUM — NA Sales | Sales & Marketing OpEx
+  🟡 MEDIUM — DEPT-NA-SALES | COGS-001 (Raw Materials Cost)
+  ─────────────────────────────────────────────────────
+    Budget: $145,000 | Actual: $168,000
+    Variance: +$23,000 (+15.9%) ← Unfavorable
+
+    Root Cause: Steel plate prices rose 14% due to EU tariff changes.
+    $23K unbudgeted raw material overspend. Procurement reviewing
+    alternative suppliers. [source: ERP]
+
+    Classification: External/pricing — procurement action required
+    Forecast Action: +$20K Q1 COGS adjustment recommended
+
+  ─────────────────────────────────────────────────────
+  🟡 MEDIUM — DEPT-NA-SALES | OPEX-001 (Sales & Distribution OPEX)
   ─────────────────────────────────────────────────────
     Budget: $120,000 | Actual: $145,000
     Variance: +$25,000 (+20.8%) ← Unfavorable
 
-    Root Cause: 1 unbudgeted PO ($18K — TechWorld Events trade show) and
-    1 headcount event ($8K/mo — new Enterprise AE hire). [source: ERP]
+    Root Cause: Unplanned Hannover Messe sponsorship ($18K approved late)
+    and additional headcount in December not in original plan. [source: ERP]
 
     Classification: Controllable overspend
     Forecast Action: +$15K Q1 OpEx adjustment recommended
 
   ─────────────────────────────────────────────────────
-  ✅ FAVORABLE — EMEA Sales | Enterprise Software Revenue
-    +$40,000 (+10.5%) — Early close of GlobalTech deal. No action required.
+  ✅ FAVORABLE — DEPT-EMEA-SALES | REV-001 (Finished Goods Revenue)
+    Budget: $480,000 | Actual: $520,000
+    +$40,000 (+8.3%) — GlobalTech framework order closed early. No action required.
 
   ─────────────────────────────────────────────────────
   SUMMARY
     Revenue Variance (Net): -$135,000 (-8.8% vs budget)
-    OpEx Variance (Net):    +$25,000  (+7.5% vs budget)
-    Material Variances: 2 (1 High, 1 Medium)
+    OpEx Variance (Net):    +$48,000  (+18.2% vs budget)
+    Material Variances: 3 (1 High, 2 Medium)
     Coverage: 100% of material variances explained
 
   RECOMMENDED ACTIONS:
-    1. [HIGH]   Confirm Feb close — Acme Corp + TechStart (Sales VP)
-    2. [MEDIUM] Review NA Sales OpEx run-rate for Q1 re-forecast (FP&A)
-    3. [LOW]    Document EMEA early close in Q1 pipeline report (Sales Ops)
+    1. [HIGH]   Confirm Feb close — Acme Corp + TechStart (VP Sales)
+    2. [MEDIUM] Procure alternative steel suppliers — EU tariff mitigation (Procurement)
+    3. [MEDIUM] Review NA OpEx run-rate for Q1 re-forecast (FP&A)
 
-  Confidence: 0.95 | Alerts: VP Sales (email), FP&A Manager (dashboard)
+  Confidence: 0.95 | Alerts: VP Sales (email), CFO flag, FP&A Manager (dashboard)
 
 agents:
   - pa_data_agent

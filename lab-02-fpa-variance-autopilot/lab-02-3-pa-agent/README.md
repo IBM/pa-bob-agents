@@ -71,9 +71,9 @@ Rather than typing instructions manually, import from the pre-built YAML:
 Context — cube dimensions:
   Account:    REV-001..REV-004, COGS-001..COGS-002, OPEX-001..OPEX-008
   Department: DEPT-NA-SALES, DEPT-EMEA-SALES, DEPT-APAC-SALES, DEPT-LATAM-SALES ...
-  Scenario:   BUD (Budget), ACT (Actual)
-  Time:       2024-01 through 2026-06
-  Version:    V1 (Actuals), V2 (Budget)
+  Scenario:   BUD (Budget), ACT (Actual), FC-Q1..FC-Q4 (Forecast), PY-ACT (Prior Year)
+  Time:       2023-01 through 2026-06
+  Version:    V1 (all data — BUD, ACT, FC, PY-ACT all stored under V1)
 
 Reasoning — query strategy:
   1. get_available_tm1_servers
@@ -159,9 +159,9 @@ Flag any variance greater than $100,000 or 20%.
 
 | Department | Account | Budget | Actual | Variance $ | Variance % | Flag |
 |-----------|---------|--------|--------|------------|------------|------|
-| NA Sales | Enterprise Software Rev | $500K | $325K | -$175K | -35.0% | 🔴 HIGH |
-| NA Sales | Sales & Marketing OpEx | $120K | $145K | +$25K | +20.8% | 🟡 MEDIUM |
-| EMEA Sales | Enterprise Software Rev | $380K | $420K | +$40K | +10.5% | ✅ Favorable |
+| DEPT-NA-SALES | REV-001 | $500K | $325K | -$175K | -35.0% | 🔴 HIGH |
+| DEPT-NA-SALES | OPEX-001 | $120K | $145K | +$25K | +20.8% | 🟡 MEDIUM |
+| DEPT-EMEA-SALES | REV-001 | $380K | $420K | +$40K | +10.5% | ✅ Favorable |
 
 ---
 
@@ -209,9 +209,9 @@ Both paths return the same data — the agent handles this automatically.
 → Send: `List available cubes on DemoGuide` — check the exact cube name.  
 → If `FPA_Variance` is missing, the TM1 data load from Lab 1 was not completed. Ask your facilitator.
 
-**MDX query returns no rows**  
-→ Verify the `Time` member format: must be `2024-01`, not `Jan 2024` or `January 2024`.  
-→ Verify `Version` member: use `V1` for actuals, `V2` for budget.  
+**MDX query returns no rows**
+→ Verify the `Time` member format: must be `2024-01`, not `Jan 2024` or `January 2024`.
+→ Verify `Version` member: always use `V1` — all scenarios (BUD, ACT, FC-Q1..Q4, PY-ACT) are stored under V1.
 → Call `get_cube_sample_members` on the Time dimension to see valid member names.
 
 **get_data_from_data_explorer returns an error**  

@@ -150,7 +150,7 @@ List all cubes on DemoGuide.
 What cubes are available on 24Retail?
 ```
 ```
-Show me the dimensions of the FPA_Analysis cube on DemoGuide.
+Show me the dimensions of the FPA_Variance cube on DemoGuide.
 ```
 ```
 Which cubes are pre-analyzed on DemoGuide?
@@ -164,33 +164,33 @@ Which cubes are pre-analyzed on DemoGuide?
 
 **Recommended format — explicit server + cube:**
 ```
-Run the FP&A variance analysis for January 2024 on the FPA_Analysis cube
+Run the FP&A variance analysis for January 2026 on the FPA_Variance cube
 on the DemoGuide server. Identify all material variances, investigate root
 causes using the CRM and ERP systems, and generate a full variance report.
 ```
 
 **With custom thresholds:**
 ```
-Show me January 2024 actual vs budget for all departments on the FPA_Analysis
+Show me January 2026 actual vs budget for all departments on the FPA_Variance
 cube on DemoGuide. Flag any variance greater than $100,000 or 20%.
 Investigate root causes and generate a variance report.
 ```
 
 **Focused on a department:**
 ```
-Run variance analysis for March 2024 on FPA_Analysis on DemoGuide.
+Run variance analysis for March 2026 on FPA_Variance on DemoGuide.
 Focus on APAC Sales only. Include CRM root cause context.
 ```
 
 **Focused on a period + department:**
 ```
-Run variance analysis for March 2025 on FPA_Analysis on DemoGuide.
+Run variance analysis for March 2025 on FPA_Variance on DemoGuide.
 Focus on Product Engineering. Check ERP for unbudgeted costs.
 ```
 
 **Open-ended (agent discovers server + cube):**
 ```
-Run the FP&A variance autopilot for January 2024. Identify all material
+Run the FP&A variance autopilot for January 2026. Identify all material
 variances and investigate root causes.
 ```
 
@@ -200,16 +200,20 @@ In the **Trace** / **Steps** panel on the right, you should see:
 
 ```
 Step 1 → pa_data_agent
-         "Return budget vs actual for all depts in FPA_Variance for 2024-01"
-         Result: variance table — 2 material variances flagged
+         "Return budget vs actual for all depts in FPA_Variance on DemoGuide for 2026-01 using V1"
+         Result: variance table — 3 material variances flagged
 
 Step 2 → crm_context_agent
-         "Get CRM context for dept_id=DEPT-NA-SALES, period=2024-01, account_id=REV-001"
-         Result: 2 slipped deals, $200K, context_summary returned
+         "Get CRM context for dept_id=DEPT-NA-SALES, period=2026-01, account_id=REV-001"
+         Result: 2 slipped orders, $200K, context_summary returned
 
 Step 3 → erp_context_agent
-         "Get ERP context for dept_id=DEPT-NA-SALES, period=2024-01, account_id=OPEX-001"
-         Result: 1 unbudgeted PO ($18K) + 1 HC event ($8K), context_summary returned
+         "Get ERP context for dept_id=DEPT-NA-SALES, period=2026-01, account_id=COGS-001"
+         Result: steel tariff $23K overspend, context_summary returned
+
+Step 3b → erp_context_agent
+         "Get ERP context for dept_id=DEPT-NA-SALES, period=2026-01, account_id=OPEX-001"
+         Result: 1 unbudgeted PO ($18K Hannover Messe) + headcount event, context_summary returned
 
 Step 4 → [Synthesise report]
 ```
@@ -219,57 +223,71 @@ Step 4 → [Synthesise report]
 ### Expected output
 
 ```
-📊 FP&A Variance Analysis — January 2024
+📊 FP&A Variance Analysis — January 2026
 
-Server: DemoGuide | Cube: FPA_Variance | Period: 2024-01
+Server: DemoGuide | Cube: FPA_Variance | Period: 2026-01
 Sub-agents: pa_data_agent · crm_context_agent · erp_context_agent
 Analysis time: 5.1 seconds
 
-MATERIAL VARIANCES DETECTED: 2
+MATERIAL VARIANCES DETECTED: 3
 
 ─────────────────────────────────────────────────────
-🔴 HIGH — NA Sales | Enterprise Software Revenue
+🔴 HIGH — DEPT-NA-SALES | REV-001 (Finished Goods Revenue)
 ─────────────────────────────────────────────────────
-  Budget: $500,000 | Actual: $325,000
-  Variance: -$175,000 (-35.0%) ← Unfavorable
+  Budget: $620,000 | Actual: $445,000
+  Variance: -$175,000 (-28.2%) ← Unfavorable
 
-  Root Cause: Two enterprise deals totalling $200K slipped from January
-  to February. Acme Corp ($120K) delayed by customer procurement process;
-  TechStart ($80K) impacted by client budget freeze. [source: CRM]
+  Root Cause: Two major orders slipped to February — Acme Corp $120K
+  (procurement approval delayed) and TechStart $80K (customer capital
+  freeze). Timing-related variance, not structural. [source: CRM]
 
   Classification: Timing-related slippage
-  Forecast Action: None required — deals expected February
+  Forecast Action: None required — orders expected February
   CRM Action: Confirm close dates — Acme Corp + TechStart
 
 ─────────────────────────────────────────────────────
-🟡 MEDIUM — NA Sales | Sales & Marketing OpEx
+🟡 MEDIUM — DEPT-NA-SALES | COGS-001 (Raw Materials Cost)
+─────────────────────────────────────────────────────
+  Budget: $145,000 | Actual: $168,000
+  Variance: +$23,000 (+15.9%) ← Unfavorable
+
+  Root Cause: Steel plate prices rose 14% due to EU tariff changes.
+  $23K unbudgeted raw material overspend. Procurement reviewing
+  alternative suppliers. [source: ERP]
+
+  Classification: External/pricing — procurement action required
+  Forecast Action: +$20K Q1 COGS adjustment recommended
+
+─────────────────────────────────────────────────────
+🟡 MEDIUM — DEPT-NA-SALES | OPEX-001 (Sales & Distribution OPEX)
 ─────────────────────────────────────────────────────
   Budget: $120,000 | Actual: $145,000
   Variance: +$25,000 (+20.8%) ← Unfavorable
 
-  Root Cause: 1 unbudgeted PO ($18K — TechWorld Events trade show) +
-  1 headcount event ($8K/mo — new Enterprise AE hire). [source: ERP]
+  Root Cause: Unplanned Hannover Messe sponsorship ($18K approved late)
+  and additional headcount in December not in original plan. [source: ERP]
 
   Classification: Controllable overspend
   Forecast Action: +$15K Q1 OpEx adjustment recommended
 
 ─────────────────────────────────────────────────────
-✅ FAVORABLE — EMEA Sales | Enterprise Software Revenue
-  +$40,000 (+10.5%) — Early close of GlobalTech deal.
+✅ FAVORABLE — DEPT-EMEA-SALES | REV-001 (Finished Goods Revenue)
+  Budget: $480,000 | Actual: $520,000
+  +$40,000 (+8.3%) — GlobalTech framework order closed early.
 
 ─────────────────────────────────────────────────────
 SUMMARY
-  Revenue Variance (Net): -$135,000 (-8.8% vs budget)
-  OpEx Variance (Net):    +$25,000  (+7.5% vs budget)
-  Material Variances: 2 (1 High, 1 Medium)
+  Revenue Variance (Net):   -$135,000 (-8.8% vs budget)
+  OpEx/COGS Variance (Net): +$48,000  (+18.2% vs budget)
+  Material Variances: 3 (1 High, 2 Medium)
   Coverage: 100% of material variances explained
 
 RECOMMENDED ACTIONS:
-  1. [HIGH]   Confirm Feb close — Acme Corp + TechStart (Sales VP)
-  2. [MEDIUM] Review NA Sales OpEx run-rate for Q1 re-forecast (FP&A)
-  3. [LOW]    Document EMEA early close in Q1 pipeline report
+  1. [HIGH]   Confirm Feb close — Acme Corp + TechStart (VP Sales)
+  2. [MEDIUM] Procure alternative steel suppliers — EU tariff mitigation (Procurement)
+  3. [MEDIUM] Review NA OpEx run-rate for Q1 re-forecast (FP&A)
 
-Confidence: 0.95 | Alerts: VP Sales (email), FP&A Manager (dashboard)
+Confidence: 0.95 | Alerts: VP Sales (email), CFO flag, FP&A Manager (dashboard)
 ```
 
 ---
@@ -278,10 +296,10 @@ Confidence: 0.95 | Alerts: VP Sales (email), FP&A Manager (dashboard)
 
 | Prompt | Expected result |
 |--------|----------------|
-| `Run variance analysis for March 2024 on FPA_Analysis on DemoGuide. Focus on APAC Sales.` | `-$85K (-30.4%)` APAC revenue → CRM: Sino-Digital regulatory delay |
-| `Run variance analysis for March 2025 on FPA_Analysis on DemoGuide. Focus on Product Engineering.` | `+$45K (+8.7%)` Prod Eng OpEx → ERP: NVIDIA GPU PO + ML contractor |
-| `Run variance analysis for May 2024 on FPA_Analysis on DemoGuide. Focus on EMEA Sales.` | `-$35K (-8.3%)` EMEA revenue → CRM: UK market uncertainty |
-| `Run variance analysis for May 2024 on FPA_Analysis on DemoGuide. Focus on Marketing.` | `+$23K (+24.2%)` Marketing OpEx → ERP: Digital campaign launch PO |
+| `Run variance analysis for March 2026 on FPA_Variance on DemoGuide. Focus on APAC Sales.` | `-$105K (-30.0%)` APAC revenue → CRM: China regulatory delay |
+| `Run variance analysis for March 2024 on FPA_Variance on DemoGuide. Focus on APAC Sales.` | `-$85K (-30.4%)` APAC revenue → CRM: Regulatory approval delays |
+| `Run variance analysis for January 2024 on FPA_Variance on DemoGuide. Focus on Product Engineering.` | `+$18K (+4.0%)` Prod Eng OpEx → ERP: Cloud infrastructure costs |
+| `Run variance analysis for May 2024 on FPA_Variance on DemoGuide. Focus on EMEA Sales.` | `-$35K (-8.3%)` EMEA revenue → CRM: Economic uncertainty |
 
 ---
 
@@ -306,7 +324,7 @@ Before moving to Lab 2.6 (optional), confirm:
 
 - [ ] `FP&A Variance Autopilot` orchestrator shows **Active** in Orchestrate
 - [ ] All 3 sub-agents appear under the **Agents** tab of the orchestrator
-- [ ] Jan 2024 full autopilot produces a report with 2 material variances
+- [ ] Jan 2026 full autopilot produces a report with 3 material variances (1 High, 2 Medium)
 - [ ] Trace shows sub-agent calls in the correct order
 - [ ] Report includes `[source: CRM]` and `[source: ERP]` citations
 
