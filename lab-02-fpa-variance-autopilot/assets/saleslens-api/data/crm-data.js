@@ -16,6 +16,14 @@ let deals = [
   { deal_id:'CRM-2024-030', account_name:'Rodrigues Fintech SA', account_region:'Latin America', dept_id:'DEPT-LATAM-SALES', owner:'Carlos Rodriguez',stage:'Contract Review',  arr_value:38000,  scheduled_close:'2024-06-30', actual_close:null,          slip_reason:null, slip_date:null, rescheduled_close:null,         probability:75,  account_id:'REV-003', period_impacted:'2024-06', period_recovered:null,      status:'open',        classification:'on_track' },
   { deal_id:'CRM-2025-001', account_name:'NovaCorp USA',         account_region:'North America', dept_id:'DEPT-NA-SALES',    owner:'Sarah Johnson',   stage:'Closed Won',      arr_value:210000, scheduled_close:'2025-01-31', actual_close:'2025-01-29', slip_reason:null, slip_date:null, rescheduled_close:null,         probability:100, account_id:'REV-001', period_impacted:'2025-01', period_recovered:null,      status:'closed',      classification:'on_track' },
   { deal_id:'CRM-2025-002', account_name:'EuroPay AG',           account_region:'Europe',        dept_id:'DEPT-EMEA-SALES',  owner:'Michael Schmidt', stage:'Negotiation',     arr_value:95000,  scheduled_close:'2025-02-28', actual_close:null,          slip_reason:'Procurement freeze during EuroPay M&A activity', slip_date:'2025-02-10', rescheduled_close:'2025-03-31', probability:65,  account_id:'REV-001', period_impacted:'2025-02', period_recovered:'2025-03', status:'slipped',     classification:'timing' },
+  // 2026 deals
+  { deal_id:'CRM-2026-001', account_name:'Acme Corp',            account_region:'North America', dept_id:'DEPT-NA-SALES',    owner:'Sarah Johnson',   stage:'Negotiation',     arr_value:120000, scheduled_close:'2026-01-31', actual_close:null,          slip_reason:'Procurement approval delayed — new vendor onboarding process at Acme expanded to 6 weeks', slip_date:'2026-01-20', rescheduled_close:'2026-02-28', probability:90,  account_id:'REV-001', period_impacted:'2026-01', period_recovered:'2026-02', status:'slipped',     classification:'timing' },
+  { deal_id:'CRM-2026-002', account_name:'TechStart Inc',        account_region:'North America', dept_id:'DEPT-NA-SALES',    owner:'Sarah Johnson',   stage:'Contract Review', arr_value:80000,  scheduled_close:'2026-01-31', actual_close:null,          slip_reason:'Customer capital freeze — CFO imposed Q1 discretionary spend hold pending board review', slip_date:'2026-01-22', rescheduled_close:'2026-02-15', probability:75,  account_id:'REV-001', period_impacted:'2026-01', period_recovered:'2026-02', status:'slipped',     classification:'timing' },
+  { deal_id:'CRM-2026-003', account_name:'GlobalTech GmbH',      account_region:'Europe',        dept_id:'DEPT-EMEA-SALES',  owner:'Michael Schmidt', stage:'Closed Won',      arr_value:42000,  scheduled_close:'2026-02-10', actual_close:'2026-01-19', slip_reason:null, slip_date:null, rescheduled_close:null,         probability:100, account_id:'REV-001', period_impacted:'2026-01', period_recovered:null,      status:'early_close', classification:'favorable' },
+  { deal_id:'CRM-2026-004', account_name:'Acme Corp',            account_region:'North America', dept_id:'DEPT-NA-SALES',    owner:'Sarah Johnson',   stage:'Closed Won',      arr_value:120000, scheduled_close:'2026-02-28', actual_close:'2026-02-18', slip_reason:null, slip_date:null, rescheduled_close:null,         probability:100, account_id:'REV-001', period_impacted:'2026-02', period_recovered:null,      status:'closed',      classification:'recovery' },
+  { deal_id:'CRM-2026-005', account_name:'TechStart Inc',        account_region:'North America', dept_id:'DEPT-NA-SALES',    owner:'Sarah Johnson',   stage:'Closed Won',      arr_value:80000,  scheduled_close:'2026-02-28', actual_close:'2026-02-20', slip_reason:null, slip_date:null, rescheduled_close:null,         probability:100, account_id:'REV-001', period_impacted:'2026-02', period_recovered:null,      status:'closed',      classification:'recovery' },
+  { deal_id:'CRM-2026-006', account_name:'SinoMfg Holdings',     account_region:'Asia Pacific',  dept_id:'DEPT-APAC-SALES',  owner:'Li Wei',          stage:'Pending Approval',arr_value:90000,  scheduled_close:'2026-03-31', actual_close:null,          slip_reason:'China Type-A product certification renewal — mandatory 60-day regulatory review period', slip_date:'2026-03-08', rescheduled_close:'2026-05-15', probability:80,  account_id:'REV-001', period_impacted:'2026-03', period_recovered:'2026-05', status:'slipped',     classification:'external_regulatory' },
+  { deal_id:'CRM-2026-007', account_name:'NovaBuild SA',         account_region:'Latin America', dept_id:'DEPT-LATAM-SALES', owner:'Carlos Rodriguez',stage:'Contract Review',  arr_value:32000,  scheduled_close:'2026-01-31', actual_close:'2026-01-29', slip_reason:null, slip_date:null, rescheduled_close:null,         probability:100, account_id:'REV-001', period_impacted:'2026-01', period_recovered:null,      status:'closed',      classification:'on_track' },
 ];
 
 let pipelineSummary = {
@@ -62,8 +70,28 @@ let pipelineSummary = {
     '2025-01': { open_pipeline:260000,  slipped:0,      at_risk:0,      on_track:260000,  early_close:0,     deal_count:3,  coverage_ratio:1.5, quota:175000 },
     '2025-02': { open_pipeline:240000,  slipped:30000,  at_risk:20000,  on_track:190000,  early_close:0,     deal_count:3,  coverage_ratio:1.3, quota:185000 },
     '2025-03': { open_pipeline:280000,  slipped:0,      at_risk:30000,  on_track:250000,  early_close:0,     deal_count:3,  coverage_ratio:1.4, quota:200000 },
+    '2026-01': { open_pipeline:280000,  slipped:0,      at_risk:0,      on_track:280000,  early_close:32000, deal_count:3,  coverage_ratio:1.6, quota:175000 },
+    '2026-02': { open_pipeline:295000,  slipped:0,      at_risk:20000,  on_track:275000,  early_close:0,     deal_count:3,  coverage_ratio:1.5, quota:185000 },
+    '2026-03': { open_pipeline:310000,  slipped:0,      at_risk:30000,  on_track:280000,  early_close:0,     deal_count:4,  coverage_ratio:1.6, quota:195000 },
   },
 };
+
+// 2026 pipeline summaries — appended to existing dept objects above via Object.assign at module load
+Object.assign(pipelineSummary['DEPT-NA-SALES'], {
+  '2026-01': { open_pipeline:1180000, slipped:200000, at_risk:80000,  on_track:900000,  early_close:0,     deal_count:12, coverage_ratio:1.9, quota:620000 },
+  '2026-02': { open_pipeline:1050000, slipped:0,      at_risk:60000,  on_track:990000,  early_close:200000,deal_count:11, coverage_ratio:1.7, quota:630000 },
+  '2026-03': { open_pipeline:920000,  slipped:0,      at_risk:50000,  on_track:870000,  early_close:0,     deal_count:10, coverage_ratio:1.4, quota:640000 },
+});
+Object.assign(pipelineSummary['DEPT-EMEA-SALES'], {
+  '2026-01': { open_pipeline:720000,  slipped:0,      at_risk:0,      on_track:720000,  early_close:42000, deal_count:8,  coverage_ratio:1.5, quota:480000 },
+  '2026-02': { open_pipeline:680000,  slipped:0,      at_risk:30000,  on_track:650000,  early_close:0,     deal_count:7,  coverage_ratio:1.4, quota:490000 },
+  '2026-03': { open_pipeline:710000,  slipped:0,      at_risk:20000,  on_track:690000,  early_close:0,     deal_count:8,  coverage_ratio:1.4, quota:500000 },
+});
+Object.assign(pipelineSummary['DEPT-APAC-SALES'], {
+  '2026-01': { open_pipeline:480000,  slipped:0,      at_risk:40000,  on_track:440000,  early_close:0,     deal_count:6,  coverage_ratio:1.5, quota:320000 },
+  '2026-02': { open_pipeline:560000,  slipped:0,      at_risk:30000,  on_track:530000,  early_close:0,     deal_count:7,  coverage_ratio:1.4, quota:400000 },
+  '2026-03': { open_pipeline:420000,  slipped:90000,  at_risk:60000,  on_track:270000,  early_close:0,     deal_count:5,  coverage_ratio:1.2, quota:350000 },
+});
 
 let _nextId = 100;
 function nextDealId() { return `CRM-CUSTOM-${String(++_nextId).padStart(3,'0')}`; }
