@@ -14,19 +14,19 @@ This hands-on workshop demonstrates how **IBM Bob**, **IBM Planning Analytics (T
 
 ## Workshop Overview
 
-| # | Session | Duration | Speaker |
-|---|---------|----------|---------|
-| — | Welcome, introductions, and objectives | 10 min | Charu, Mario |
-| [Deck](https://ibm.box.com/s/ddqqf63j6m37styuic7z08q7pfrz3e9z) | watsonx Orchestrate overview | 30 min | Lorenzo |
-| [Deck](https://ibm.box.com/s/76jc2g01sacgk4acqolvop926olv2o7m) | Bob overview & Demo: Planning Analytics assistant experience | 30 min | Srikanth |
-| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 30 min | Shan |
+| # | Session | Duration | 
+|---|---------|----------|
+| — | Welcome, introductions, and objectives | 10 min |
+| [Deck](https://ibm.box.com/s/ddqqf63j6m37styuic7z08q7pfrz3e9z) | watsonx Orchestrate overview | 30 min | 
+| [Deck](https://ibm.box.com/s/76jc2g01sacgk4acqolvop926olv2o7m) | Bob overview & Demo: Planning Analytics assistant experience | 30 min | 
+| [Lab 0](./lab-00-setup/README.md) | Environment setup, access validation & MCP configuration | 30 min |
 | — | *Break* | *15 min* | — |
-| [Lab 1](./lab-01-bob-planning-analytics-mcp/README.md) | **Hands-On Lab 1:** Bob + Planning Analytics via MCP | 60 min | Srikanth |
-| — | Use case overview: FP&A Variance Autopilot | 10 min | Shan |
+| [Lab 1](./lab-01-bob-planning-analytics-mcp/README.md) | **Hands-On Lab 1:** Bob + Planning Analytics via MCP | 60 min | 
+| — | Use case overview: FP&A Variance Autopilot | 10 min |
 | — | *Lunch / Break* | *60 min* | — |
-| [Lab 2](./lab-02-fpa-variance-autopilot/README.md) | **Hands-On Lab 2:** FP&A Variance Autopilot | 90 min | Shan |
-| [Your Scenario](./session-03-your-scenario/README.md) | Your Scenario — map the pattern to your own use case | 15 min | Shan |
-| — | Shareback + Wrap-up, next steps, and Q&A | 10 min | Mario, Lorenzo |
+| [Lab 2](./lab-02-fpa-variance-autopilot/README.md) | **Hands-On Lab 2:** FP&A Variance Autopilot | 90 min |
+| [Your Scenario](./session-03-your-scenario/README.md) | Your Scenario — map the pattern to your own use case | 15 min |
+| — | Shareback + Wrap-up, next steps, and Q&A | 10 min |
 
 ---
 
