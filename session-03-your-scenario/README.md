@@ -111,7 +111,7 @@ If you want to move beyond the UI and define agents, tools, and deployments enti
 | Chat with agents from the terminal | `orchestrate agents chat --agent fpa_variance_autopilot` |
 | Call agents via REST API from any app | `POST /v1/chat` with your agent ID |
 
-**→ Work through [lab-02-7-adk](../lab-02-fpa-variance-autopilot/lab-02-7-adk/README.md)** — standalone bonus, work through it independently at your own pace.
+**→ Work through [lab-02-8-adk](../lab-02-fpa-variance-autopilot/lab-02-8-adk/README.md)** — standalone bonus, work through it independently at your own pace.
 
 **→ IBM Developer learning path:** [Get started with watsonx Orchestrate — Develop agents with ADK](https://developer.ibm.com/learningpaths/get-started-watsonx-orchestrate/develop-agents-adk/)
 
@@ -125,7 +125,7 @@ If you want to move beyond the UI and define agents, tools, and deployments enti
 | watsonx Orchestrate Documentation | [ibm.com/docs/en/watsonx/watson-orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate) |
 | Planning Analytics Building Blocks | [github.com/ibm-self-serve-assets/building-blocks](https://github.com/ibm-self-serve-assets/building-blocks/tree/main/optimize/budget-and-forecasting) |
 | Workshop Repository | Fork this repo and use it as your PoC starting point |
-| Agent YAMLs to adapt | `lab-02-3-pa-agent/`, `lab-02-4-crm-erp-agents/`, `lab-02-5-orchestrator/` |
+| Agent YAMLs to adapt | `lab-02-2-pa-agent/`, `lab-02-4-crm-erp-agents/`, `lab-02-5-orchestrator/` |
 | **ADK Learning Path** | [developer.ibm.com — Develop agents with ADK](https://developer.ibm.com/learningpaths/get-started-watsonx-orchestrate/develop-agents-adk/) |
 
 ---

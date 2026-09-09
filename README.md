@@ -77,28 +77,34 @@ pa-bob-orchestrate-workshop/
 │
 ├── lab-02-fpa-variance-autopilot/
 │   ├── README.md                          ← Lab 2 overview + sub-lab navigation
-│   ├── TODO.md                            ← Asset checklist and facilitator notes
 │   ├── assets/
 │   │   ├── fpa-variance-agent.yaml        ← Full agent YAML (working version)
 │   │   ├── fpa-variance-agent-reference.yaml  ← Reference / answer key
 │   │   └── saleslens-api/                 ← SalesLens Mock CRM+ERP API (Node.js app)
-│   ├── lab-02-1-add-mcp-server/
-│   │   └── README.md                      ← Sub-lab: register PA MCP + credentials
-│   ├── lab-02-2-import-rest-api-tools/
-│   │   └── README.md                      ← Sub-lab: import SalesLens OpenAPI tools
-│   ├── lab-02-3-pa-agent/
-│   │   ├── README.md                      ← Sub-lab: PA Data Agent instructions
+│   ├── lab-02-0-fpa-dataset-catchup/
+│   │   └── README.md                      ← Sub-lab: confirm FPA dataset
+│   ├── lab-02-1-pa-mcp-connection/
+│   │   └── README.md                      ← Sub-lab: configure PA MCP connection
+│   ├── lab-02-2-pa-agent/
+│   │   ├── README.md                      ← Sub-lab: PA Data Agent + MCP registration
 │   │   └── pa-data-agent.yaml             ← PA Data Agent definition
+│   ├── lab-02-3-saleslens-connection/
+│   │   └── README.md                      ← Sub-lab: configure SalesLens connection
 │   ├── lab-02-4-crm-erp-agents/
-│   │   ├── README.md                      ← Sub-lab: CRM + ERP agent instructions
+│   │   ├── README.md                      ← Sub-lab: CRM & ERP agents + OpenAPI import
+│   │   ├── saleslens-openapi-spec.json    ← OpenAPI 3.0 specification
 │   │   ├── crm-agent.yaml                 ← CRM Agent definition
 │   │   └── erp-agent.yaml                 ← ERP Agent definition
 │   ├── lab-02-5-orchestrator/
 │   │   ├── README.md                      ← Sub-lab: Orchestrator agent instructions
 │   │   └── fpa-orchestrator-agent.yaml    ← Orchestrator Agent definition
-│   └── lab-02-6-chat-embed/
-│       ├── README.md                      ← Sub-lab (optional): HTML chat embed
-│       └── saleslens-crm-erp.html         ← Embeddable chat UI
+│   ├── lab-02-6-agentops/
+│   │   └── README.md                      ← Sub-lab: AgentOps tracing & evaluation
+│   ├── lab-02-7-chat-embed/
+│   │   ├── README.md                      ← Sub-lab (optional): HTML chat embed
+│   │   └── saleslens-wxo-embed.html       ← Embeddable chat UI
+│   └── lab-02-8-adk/
+│       └── README.md                      ← Sub-lab (bonus): Orchestrate ADK getting started
 │
 └── session-03-your-scenario/
     └── README.md                          ← 15-min canvas + Bob prompt + shareback

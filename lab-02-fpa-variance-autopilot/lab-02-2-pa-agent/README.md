@@ -1,19 +1,22 @@
-# Lab 2.3 — Create the PA Data Agent
+# Lab 2.2 — Create the PA Data Agent
 
-**Duration:** 20 minutes  
-**Prerequisite:** Lab 2.1 ✅ (MCP server registered)  
+**Duration:** ~30 minutes  
+**Prerequisite:** [Lab 2.1](../lab-02-1-pa-mcp-connection/README.md) ✅ (PA connection configured)  
 **Reference:** [developer.watson-orchestrate.ibm.com](https://developer.watson-orchestrate.ibm.com)
 
 ---
 
 ## Goal
 
-Build the **PA Data Agent** — a specialist agent whose only job is to query the FPA_Variance cube in Planning Analytics and return structured budget vs actual data with material variance flags.
+Build the **PA Data Agent** — a specialist agent whose only job is to query the `FPA_Variance` cube in Planning Analytics via MCP and return structured budget vs actual data with material variance flags.
+
+You will create the agent, register the Planning Analytics MCP server in its Toolset using the connection configured in Lab 2.1, attach all 10 PA tools, and test the agent.
 
 This agent has **no CRM or ERP tools**. It is intentionally narrow. In Lab 2.5 it becomes a sub-agent inside the orchestrator.
 
 By the end of this lab you will have:
 - The `PA Data Agent` created and configured in Orchestrate
+- The Planning Analytics Remote MCP server registered in the agent's Toolset
 - All 10 PA MCP tools attached
 - A live variance query returning a flagged results table
 
@@ -32,7 +35,7 @@ Building a focused PA-only agent first lets you:
 
 ### Option A — Orchestrate UI
 
-1. In Orchestrate, navigate to **Agents** → **Create agent** (or **+ New agent**).
+1. In Orchestrate, navigate to **Build** → **All agents** → **Create agent** (or **+ New agent**).
 2. Fill in the basic details:
 
 | Field | Value |
@@ -91,34 +94,64 @@ Material variance thresholds:
 
 ---
 
-## Step 3 — Add the PA MCP Tools
+## Step 3 — Add the Remote MCP Server
 
-1. In the agent editor, go to the **Tools** tab.
-2. Click **Add tools** → **From integration** → select `planning-analytics-mcp`.
-3. Enable all 10 tools:
+1. In the agent editor, scroll to the **Toolset** section.
+2. Click **Add tool** → **MCP server**.
+3. In the **Add tools and manage MCP servers** window, click **Add MCP server**.
+4. Select **Remote MCP server** and click **Next**.
+5. Fill in the server details:
 
-```
-✅ get_available_tm1_servers
-✅ list_cubes_with_ai_analysis_metadata
-✅ get_cube_dimensions
-✅ get_cube_sample_members
-✅ get_data_from_data_explorer
-✅ execute_mdx_and_get_view
-✅ get_cubes_that_may_answer_query
-✅ lookup_potential_members
-✅ perform_outlier_detection
-✅ get_outlier_summary
-```
+| Field | Value |
+|-------|-------|
+| **Name** | `planning-analytics-mcp` |
+| **Description** | IBM Planning Analytics TM1 tools via MCP |
+| **Server URL** | `http://<TECHZONE_HOST>:<PORT>/api/<TENANT_ID>/v0/agentic-ai/cube/mcp` |
+| **Transport type** | `Streamable HTTP` *(selected by default)* |
 
-4. Click **Save**.
+> Your facilitator will provide the exact MCP URL for the shared TechZone Planning Analytics server.
+
+6. **Select the connection:**
+   - In the **Connection** dropdown, select `Planning Analytics (Basic Auth)`.
+   - This uses the team credentials you added in Lab 2.1 — no need to re-enter the password.
+
+7. Click **Connect**.
+
+   ✅ Success: a notification confirms *"MCP server is ready and tools are available."*  
+   ❌ Failure: see [Troubleshooting](#troubleshooting) below.
+
+---
+
+## Step 4 — Select and Import PA Tools
+
+1. After connecting, click the **search icon** (🔍) in the server search field.
+2. Select `planning-analytics-mcp` from the list.
+3. Select all 10 of the following tools:
+
+| Tool name | Description |
+|-----------|-------------|
+| `get_available_tm1_servers` | Lists all TM1 server instances |
+| `list_cubes_with_ai_analysis_metadata` | Lists cubes with pre-analysis status |
+| `get_cube_dimensions` | Returns dimensions for a named cube |
+| `get_cube_sample_members` | Returns sample members for a dimension |
+| `get_data_from_data_explorer` | Natural language data query (pre-analyzed cubes) |
+| `execute_mdx_and_get_view` | Runs a raw MDX query |
+| `get_cubes_that_may_answer_query` | Finds cubes matching a natural language query |
+| `lookup_potential_members` | Finds dimension members by partial name |
+| `perform_outlier_detection` | Statistical outlier detection on a cube slice |
+| `get_outlier_summary` | Summarises outlier detection results |
+
+4. Click **Add to agent** (or **Save**).
+
+The tools now appear in the agent's **Toolset** section.
 
 > **Do not add any CRM or ERP tools.** This agent is PA-only by design.
 
 ---
 
-## Step 4 — Test the Agent
+## Step 5 — Test the Agent
 
-### Test 4.1 — Basic cube discovery
+### Test 5.1 — Basic cube discovery
 
 In the agent **Preview** / **Test** panel, send:
 
@@ -140,7 +173,7 @@ FPA_Variance dimensions: Account · Department · Scenario · Time · Version
 
 ---
 
-### Test 4.2 — Variance query with flagging
+### Test 5.2 — Variance query with flagging
 
 Send:
 
@@ -165,7 +198,7 @@ Flag any variance greater than $100,000 or 20%.
 
 ---
 
-### Test 4.3 — MDX fallback (if needed)
+### Test 5.3 — MDX fallback (if needed)
 
 If the agent switches to MDX automatically, check the trace — you should see a note like:
 ```
@@ -177,13 +210,32 @@ This is correct behaviour — no intervention required.
 
 ## ✅ Checkpoint
 
-Before moving to Lab 2.4, confirm:
+Before moving to Lab 2.3, confirm:
 
 - [ ] `PA Data Agent` shows **Active** status in Orchestrate
-- [ ] All 10 PA MCP tools are attached
-- [ ] Test 4.1 returns `DemoGuide` and 5 dimensions
-- [ ] Test 4.2 returns the variance table with at least 2 flagged variances
+- [ ] Remote MCP server `planning-analytics-mcp` added with **Streamable HTTP** transport
+- [ ] Connection `Planning Analytics (Basic Auth)` selected during MCP server setup
+- [ ] All 10 PA MCP tools appear in the agent's Toolset
+- [ ] Test 5.1 returns `DemoGuide` and 5 dimensions
+- [ ] Test 5.2 returns the variance table with at least 2 flagged variances
 - [ ] Agent instructions are imported from [`pa-data-agent.yaml`](pa-data-agent.yaml)
+
+---
+
+## ADK Alternative
+
+```bash
+# Register the MCP server using the connection created in Lab 2.1
+# (no need to re-enter credentials — they are stored against the connection)
+orchestrate tools import \
+  --kind mcp \
+  --url http://<TECHZONE_HOST>:<PORT>/api/<TENANT_ID>/v0/agentic-ai/cube/mcp \
+  --name planning-analytics-mcp \
+  --connection planning-analytics-basic
+
+# Verify tools were discovered
+orchestrate tools list | grep planning-analytics-mcp
+```
 
 ---
 
@@ -205,6 +257,21 @@ Both paths return the same data — the agent handles this automatically.
 
 ## Troubleshooting
 
+**"Connect" fails on the MCP server**  
+→ Verify the team credential is set to the **Live** environment (not just Draft).  
+→ Verify the MCP URL — no trailing slash, correct port, correct tenant ID segment.  
+→ Open the URL in a browser — a valid MCP endpoint returns a JSON response.
+
+**Tool list is empty after a successful connection**  
+→ The MCP server connected but reported no tools. Check with your facilitator that the agentic-AI / MCP endpoint is enabled on the TechZone instance.
+
+**Only SSE is available (no Streamable HTTP)**  
+→ Select **Server-Sent Events (SSE)** as the transport type instead. The URL and credentials remain the same.
+
+**`get_available_tm1_servers` returns an auth error in Preview**  
+→ Confirm the team credential status shows ✅ in the Live environment under **Manage → Security → Team credentials**.  
+→ If it shows ❌, click Options → **Edit** and re-enter the password.
+
 **Agent returns "Cube not found"**  
 → Send: `List available cubes on DemoGuide` — check the exact cube name.  
 → If `FPA_Variance` is missing, the TM1 data load from Lab 1 was not completed. Ask your facilitator.
@@ -223,4 +290,4 @@ Both paths return the same data — the agent handles this automatically.
 
 ## Next
 
-→ **[Lab 2.4 — Create CRM + ERP Sub-Agents](../lab-02-4-crm-erp-agents/README.md)**
+→ **[Lab 2.3 — Configure the SalesLens API Connection](../lab-02-3-saleslens-connection/README.md)**

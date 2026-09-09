@@ -1,18 +1,19 @@
 # Lab 2.4 — Create the CRM Agent & ERP Agent
 
-**Duration:** 20 minutes  
-**Prerequisite:** Lab 2.2 ✅ (SalesLens tools imported)  
-**Reference:** [developer.watson-orchestrate.ibm.com](https://developer.watson-orchestrate.ibm.com)
+**Duration:** ~30 minutes  
+**Prerequisite:** [Lab 2.3](../lab-02-3-saleslens-connection/README.md) ✅ (SalesLens connection configured)  
+**IBM Docs:**
+- [Import tools from an OpenAPI](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=tools-importing-from-openapi)
 
 ---
 
 ## Goal
 
-Build two focused sub-agents — one for CRM deal context and one for ERP cost context — each using only their relevant SalesLens tools. Test each independently before wiring them to the orchestrator in Lab 2.5.
+Build two focused sub-agents — one for CRM deal context and one for ERP cost context. You will import the SalesLens OpenAPI spec into each agent so each receives only its own 3 relevant tools. Test each independently before wiring them to the orchestrator in Lab 2.5.
 
 By the end of this lab you will have:
-- `CRM Context Agent` active in Orchestrate — 3 CRM tools, revenue root cause
-- `ERP Context Agent` active in Orchestrate — 3 ERP tools, OpEx root cause
+- `CRM Context Agent` active in Orchestrate — 3 CRM tools (`getCrmVarianceContext`, `getCrmDeals`, `getCrmPipelineSummary`), revenue root cause
+- `ERP Context Agent` active in Orchestrate — 3 ERP tools (`getErpCostContext`, `getErpPurchaseOrders`, `getErpHeadcountEvents`), OpEx root cause
 - Both agents returning structured `context_summary` narratives
 
 ---
@@ -36,7 +37,7 @@ The orchestrator in Lab 2.5 routes to the right agent based on account type (`RE
 
 **Option A — Orchestrate UI:**
 
-1. Navigate to **Agents** → **Create agent**.
+1. Navigate to **Build** → **All agents** → **Create agent**.
 2. Fill in:
 
 | Field | Value |
@@ -44,6 +45,8 @@ The orchestrator in Lab 2.5 routes to the right agent based on account type (`RE
 | **Name** | `CRM Context Agent` |
 | **Description** | Queries the SalesLens CRM API for deal slippage and pipeline context. Returns root cause narratives for revenue variances. Does not query Planning Analytics or ERP. |
 | **Model** | `ibm/granite-3-3-8b-instruct` (or tenant default) |
+
+3. Click **Create**.
 
 **Option B — ADK:**
 
@@ -76,18 +79,29 @@ Constraint:
 
 ---
 
-### Step A3 — Add CRM Tools
+### Step A3 — Import CRM Tools via OpenAPI
 
-1. **Tools** tab → **Add tools** → **From integration** → `saleslens-crm`.
-2. Enable:
+> ⚠️ **Before uploading:** Open [`saleslens-openapi-spec.json`](saleslens-openapi-spec.json) in a text editor and replace the `<SALESLENS_ENDPOINT_URL>` placeholder in the `"servers"` block with the actual URL provided by your facilitator. Save the file before proceeding — Orchestrate will use this URL as the base for all tool calls.
+
+1. In the **Toolset** section of the `CRM Context Agent`, click **Add tool**.
+2. Click **OpenAPI**.
+3. **Drag and drop** `saleslens-openapi-spec.json` from this folder into the upload area (or click to browse).
+4. After the file uploads, click **Next**.
+5. In the operations list, select the **3 CRM operations**:
 
 ```
-✅ getCrmVarianceContext       ← primary — always call this first
-✅ getCrmDeals                 ← supporting — use for drill-down
-✅ getCrmPipelineSummary       ← supporting — use for coverage ratio
+✅ getCrmVarianceContext     GET /crm/variance-context
+✅ getCrmDeals               GET /crm/deals
+✅ getCrmPipelineSummary     GET /crm/pipeline-summary
 ```
 
-3. Click **Save**.
+   Deselect all ERP operations for this agent.
+
+6. Click **Next**.
+7. In the **Connection** dropdown, select `SalesLens API Key` (configured in Lab 2.3).
+8. Click **Done**.
+
+The 3 CRM tools now appear in the agent's Toolset.
 
 > **Do not add ERP tools to this agent.**
 
@@ -137,11 +151,16 @@ Expected: an early close (GlobalTech deal) — favorable context.
 
 **Option A — Orchestrate UI:**
 
+1. Navigate to **Build** → **All agents** → **Create agent**.
+2. Fill in:
+
 | Field | Value |
 |-------|-------|
 | **Name** | `ERP Context Agent` |
 | **Description** | Queries the SalesLens ERP API for unbudgeted purchase orders and headcount events. Returns root cause narratives for OpEx and COGS variances. Does not query Planning Analytics or CRM. |
 | **Model** | `ibm/granite-3-3-8b-instruct` (or tenant default) |
+
+3. Click **Create**.
 
 **Option B — ADK:**
 
@@ -175,18 +194,28 @@ Constraint:
 
 ---
 
-### Step B3 — Add ERP Tools
+### Step B3 — Import ERP Tools via OpenAPI
 
-1. **Tools** tab → **Add tools** → **From integration** → `saleslens-erp`.
-2. Enable:
+Repeat the OpenAPI import using the **same spec file**:
+
+1. In the **Toolset** section of the `ERP Context Agent`, click **Add tool** → **OpenAPI**.
+2. **Drag and drop** `saleslens-openapi-spec.json` again.
+3. Click **Next**.
+4. This time select the **3 ERP operations**:
 
 ```
-✅ getErpCostContext            ← primary — always call this first
-✅ getErpPurchaseOrders         ← supporting — use for PO drill-down
-✅ getErpHeadcountEvents        ← supporting — use for HC drill-down
+✅ getErpCostContext         GET /erp/cost-context
+✅ getErpPurchaseOrders      GET /erp/purchase-orders
+✅ getErpHeadcountEvents     GET /erp/headcount-events
 ```
 
-3. Click **Save**.
+   Deselect all CRM operations for this agent.
+
+5. Click **Next**.
+6. In the **Connection** dropdown, select `SalesLens API Key`.
+7. Click **Done**.
+
+The 3 ERP tools now appear in the agent's Toolset.
 
 > **Do not add CRM tools to this agent.**
 
@@ -235,6 +264,18 @@ Expected: NVIDIA GPU purchase order + ML contractor headcount event.
 
 ---
 
+## Step C — Explore the Demo UI Side-by-Side (Optional)
+
+Open `<SALESLENS_ENDPOINT_URL>/demo` in a browser tab. Go to **Variance Lookup** and enter:
+- **Department:** `DEPT-NA-SALES`
+- **Period:** `2024-01`
+
+Click **Fetch context**. You will see the exact same `context_summary` strings the agents returned — this confirms what Orchestrate called under the hood via `getCrmVarianceContext` and `getErpCostContext`.
+
+> **Key insight for participants:** The agent is not hallucinating root causes — it is reading them directly from a live REST API. This is the pattern for any real implementation: your CRM (Salesforce, HubSpot) or ERP (SAP, Oracle) exposes an endpoint; the agent calls it.
+
+---
+
 ## ✅ Checkpoint
 
 Before moving to Lab 2.5, confirm:
@@ -244,6 +285,29 @@ Before moving to Lab 2.5, confirm:
 - [ ] CRM test: `getCrmVarianceContext` returns `context_summary` with 2 slipped deals
 - [ ] ERP test: `getErpCostContext` returns `context_summary` with PO + headcount event
 - [ ] Neither agent has tools from the other system
+
+---
+
+## ADK Alternative
+
+```bash
+# Import CRM tools
+orchestrate tools import \
+  --kind openapi \
+  --spec ./saleslens-openapi-spec.json \
+  --name saleslens-crm \
+  --connection saleslens-api-key
+
+# Import ERP tools
+orchestrate tools import \
+  --kind openapi \
+  --spec ./saleslens-openapi-spec.json \
+  --name saleslens-erp \
+  --connection saleslens-api-key
+
+# Verify tools
+orchestrate tools list | grep saleslens
+```
 
 ---
 
@@ -262,12 +326,22 @@ Before moving to Lab 2.5, confirm:
 
 ## Troubleshooting
 
-**getCrmVarianceContext returns empty `slipped_deals`**  
-→ Check dept_id spelling exactly: `DEPT-NA-SALES` (all caps, hyphens).  
-→ Check period format: `2024-01` not `January 2024`.  
-→ Verify the API key credential in the `saleslens-crm` integration.
+**File upload fails or no operations appear**  
+→ Verify `saleslens-openapi-spec.json` is valid JSON: `python3 -m json.tool saleslens-openapi-spec.json`  
+→ The file must start with `{` — not HTML.
 
-**getErpCostContext returns 404**  
+**Only some operations appear in the list**  
+→ Ensure the spec version is OpenAPI 3.0.x (not Swagger 2.x).
+
+**401 Unauthorized when the agent calls a tool**  
+→ The connection was not associated during import. Open each tool → **Edit details** → confirm the connection shows `SalesLens API Key`.  
+→ Verify the team credential status is ✅ in the Live environment under **Manage → Security → Team credentials**.
+
+**`getCrmVarianceContext` returns empty `slipped_deals`**  
+→ Check dept_id spelling exactly: `DEPT-NA-SALES` (all caps, hyphens).  
+→ Check period format: `2024-01` not `January 2024`. Test at `<APP_URL>/docs`.
+
+**`getErpCostContext` returns 404**  
 → Check the SalesLens app is running: `curl <BASE_URL>/health`  
 → Valid dept IDs for ERP include all 12 departments (not just Sales regions).
 

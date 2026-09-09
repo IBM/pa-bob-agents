@@ -11,8 +11,8 @@
     },
     "servers": [
         {
-            "url": "<SALESLENS_ENDPOINT_URL>",
-            "description": "SalesLens Mock CRM & ERP API — replace with your deployed endpoint URL"
+            "url": "https://<SALESLENS_ENDPOINT_URL>",
+            "description": "IBM Code Engine — deployed instance"
         }
     ],
     "security": [
