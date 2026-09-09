@@ -189,10 +189,10 @@ In the Bob chat panel, send:
 
 ```
 Run this shell command and give me the output:
-echo -n "admin:your-password-here" | base64
+echo -n "<PA_USERNAME>:<PA_PASSWORD>" | base64
 ```
 
-Replace `admin` and `your-password-here` with the username and password provided by your facilitator.
+Replace `<PA_USERNAME>` and `<PA_PASSWORD>` with the username and password provided by your facilitator.
 
 **Bob will return something like:**
 ```

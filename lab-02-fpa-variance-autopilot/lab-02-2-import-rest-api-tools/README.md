@@ -45,8 +45,8 @@ SalesLens is a Node.js/Express REST API that simulates the CRM and ERP systems y
 
 | | Value |
 |-|-------|
-| **App URL** | `https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud` |
-| **API Key** | `workshop-demo-key` |
+| **App URL** | `<SALESLENS_ENDPOINT_URL>` — provided by your facilitator *(e.g. `https://saleslens-api.<id>.eu-de.codeengine.appdomain.cloud`)* |
+| **API Key** | `<SALESLENS_API_KEY>` — provided by your facilitator |
 | **Header** | `X-Api-Key` |
 | **OpenAPI spec file** | `saleslens-openapi-spec.json` *(in this folder)* |
 | **Swagger UI** | `<APP_URL>/docs` |
@@ -69,7 +69,7 @@ SalesLens is a Node.js/Express REST API that simulates the CRM and ERP systems y
 5. Click **Next**.
 6. Under **Configure draft connection**:
    - **Authentication type** → select **API Key**
-   - **Server URL** *(optional)* → `https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud`
+   - **Server URL** *(optional)* → `<SALESLENS_ENDPOINT_URL>` (provided by your facilitator)
    - **API Key Location** *(optional)* → `Header`
    - **Credential type** → select **Team credential**
    - Leave SSO off.
@@ -94,7 +94,7 @@ Now store the actual API key against the connection.
 
 | Field | Value |
 |-------|-------|
-| **API Key** *(Required)* | `workshop-demo-key` |
+| **API Key** *(Required)* | `<SALESLENS_API_KEY>` — provided by your facilitator |
 
 6. Click **Connect and save** — the status dot should turn green ✅.
    - If you see **"Connection failed"** — see [Troubleshooting](#troubleshooting).
@@ -223,7 +223,7 @@ Get ERP cost context for DEPT-NA-SALES in January 2024.
 
 ## Step 6 — Explore the Demo UI (Optional)
 
-Open `https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud/demo` → **Variance Lookup** → enter `DEPT-NA-SALES` / `2024-01` → **Fetch context**.
+Open `<SALESLENS_ENDPOINT_URL>/demo` → **Variance Lookup** → enter `DEPT-NA-SALES` / `2024-01` → **Fetch context**.
 
 You will see the same `context_summary` strings — this is exactly what the agent received under the hood.
 
@@ -232,7 +232,7 @@ You will see the same `context_summary` strings — this is exactly what the age
 ## ✅ Checkpoint
 
 - [ ] `saleslens-api-key` connection created (API Key, Team credential)
-- [ ] Team credential added — `workshop-demo-key` stored in Live environment, status ✅
+- [ ] Team credential added — `<SALESLENS_API_KEY>` stored in Live environment, status ✅
 - [ ] 3 CRM tools imported and visible in the agent Toolset
 - [ ] 3 ERP tools imported and visible in the agent Toolset
 - [ ] Both imports use the `SalesLens API Key` connection
@@ -254,7 +254,7 @@ orchestrate connections create \
 # Add team credential
 orchestrate credentials add \
   --connection saleslens-api-key \
-  --value workshop-demo-key
+  --value <SALESLENS_API_KEY>
 
 # Import CRM tools
 orchestrate tools import \
@@ -283,7 +283,7 @@ orchestrate tools list | grep saleslens
 - App returning a `302` redirect — image is outdated (pre-1.0.2). Redeploy: `ibmcloud ce application update --name saleslens-api --image de.icr.io/sales-lens-workshop/saleslens:1.0.2`
 - Trailing slash in Server URL — use the URL without a trailing `/`
 - API Key field has the header name included — enter only the value: `workshop-demo-key`
-- Verify the app is live: `curl https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud/health`
+- Verify the app is live: `curl <SALESLENS_ENDPOINT_URL>/health`
 
 **Connection ID already exists**  
 → Someone already created it. Click the existing `saleslens-api-key` connection, verify it has API Key + Team credentials set, and skip Pre-Steps 1–2.
