@@ -135,7 +135,7 @@ The output will look like:
 https://fpa-mock-api.<random>.us-south.codeengine.appdomain.cloud
 ```
 
-**Share this URL and the API key with participants** — they need both to configure the Orchestrate agent in Exercise 3 of Lab 2.
+**Share this URL and the API key with participants** — they need both to configure the SalesLens connection in Lab 2.3 and import the CRM/ERP tools in Lab 2.4.
 
 ---
 

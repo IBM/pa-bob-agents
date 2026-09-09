@@ -11,8 +11,8 @@
     },
     "servers": [
         {
-            "url": "https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud",
-            "description": "IBM Code Engine — eu-de (Frankfurt)"
+            "url": "https://<SALESLENS_ENDPOINT_URL>",
+            "description": "IBM Code Engine — deployed instance"
         }
     ],
     "security": [
