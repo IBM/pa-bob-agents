@@ -11,8 +11,8 @@
     },
     "servers": [
         {
-            "url": "https://saleslens-api.2c3c5b751ehr.eu-de.codeengine.appdomain.cloud",
-            "description": "IBM Code Engine — eu-de (Frankfurt)"
+            "url": "<SALESLENS_ENDPOINT_URL>",
+            "description": "SalesLens Mock CRM & ERP API — replace with your deployed endpoint URL"
         }
     ],
     "security": [
