@@ -1,10 +1,9 @@
-# Lab 2.6 (Optional) — Embed the Autopilot in a Branded Chat Page
+# Lab 2.7 (Optional) — Embed the Autopilot in a Branded Chat Page
 
-**Duration:** 10 minutes
-**Prerequisite:** Lab 2.5 ✅ (orchestrator agent active)
+**Duration:** ~10 minutes  
+**Prerequisite:** [Lab 2.5](../lab-02-5-orchestrator/README.md) ✅ (orchestrator agent active)  
 
-**Reference:** [developer.watson-orchestrate.ibm.com/webchat](https://developer.watson-orchestrate.ibm.com/webchat/overview)
-
+**Reference:** [developer.watson-orchestrate.ibm.com/webchat](https://developer.watson-orchestrate.ibm.com/webchat/overview)  
 **Customisation:** [wxo Embed UI Configuration](https://developer.watson-orchestrate.ibm.com/webchat/ui_configuration)
 
 ---
@@ -60,9 +59,9 @@ From the same **Deploy → Embed** tab, copy:
 
 | Value | Where to find it | Example |
 |-------|-----------------|---------|
-| **Agent ID** | URL of the agent edit page — last path segment | `d7cad15e-fedc-400c-9b55-1b46d43823e8` |
-| **orchestrationID** | Embed code snippet shown on the Deploy tab | `f055679c..._97954d7b...` |
-| **hostURL** | Your Orchestrate region URL | `https://eu-de.watson-orchestrate.cloud.ibm.com` |
+| **Agent ID** | URL of the agent edit page — last path segment | `<YOUR_AGENT_ID>` (provided by your facilitator) |
+| **orchestrationID** | Embed code snippet shown on the Deploy tab | `<YOUR_ORCHESTRATION_ID>` (provided by your facilitator) |
+| **hostURL** | Your Orchestrate region URL | `<WXO_HOST_URL>` (provided by your facilitator) |
 
 ---
 
@@ -72,10 +71,10 @@ Open the file directly in your browser:
 
 ```bash
 # macOS
-open lab-02-fpa-variance-autopilot/lab-02-6-chat-embed/saleslens-wxo-embed.html
+open lab-02-fpa-variance-autopilot/lab-02-7-chat-embed/saleslens-wxo-embed.html
 
 # Windows
-start lab-02-fpa-variance-autopilot/lab-02-6-chat-embed/saleslens-wxo-embed.html
+start lab-02-fpa-variance-autopilot/lab-02-7-chat-embed/saleslens-wxo-embed.html
 ```
 
 The page loads with:
@@ -105,8 +104,8 @@ The embed is configured in the `<script>` block at the bottom of [`saleslens-wxo
 
 ```js
 window.wxOConfiguration = {
-  orchestrationID: "<your-orchestration-id>",
-  hostURL: "https://eu-de.watson-orchestrate.cloud.ibm.com",
+  orchestrationID: "<YOUR_ORCHESTRATION_ID>",
+  hostURL: "<WXO_HOST_URL>",
   rootElementID: "root",
   deploymentPlatform: "ibmcloud",
   crn: "<your-crn>",
@@ -156,5 +155,6 @@ window.wxOConfiguration = {
 
 You have completed all sub-labs in the FP&A Variance Autopilot series.
 
+→ **[Lab 2.8 (Bonus) — Get Started with watsonx Orchestrate ADK](../lab-02-8-adk/README.md)**  
 → **[Return to Lab 2 overview](../README.md)**  
-→ **[Continue to Lab 3 — Bring Your Own Use Case](../../lab-03-bring-your-own-usecase/README.md)**
+→ **[Continue to Session 3 — Bring Your Own Scenario](../../session-03-your-scenario/README.md)**

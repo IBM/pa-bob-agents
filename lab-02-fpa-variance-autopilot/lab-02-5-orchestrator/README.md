@@ -1,14 +1,14 @@
 # Lab 2.5 — Create the FP&A Orchestrator Agent
 
 **Duration:** 25 minutes  
-**Prerequisite:** Labs 2.1 ✅ · 2.2 ✅ · 2.3 ✅ · 2.4 ✅  
+**Prerequisite:** Labs 2.0–2.4 ✅  
 **Reference:** [developer.watson-orchestrate.ibm.com](https://developer.watson-orchestrate.ibm.com)
 
 ---
 
 ## Goal
 
-Build the **FP&A Variance Autopilot** as a multi-agent orchestrator. This agent does not call tools directly — it delegates to the three sub-agents you built in Labs 2.3 and 2.4, synthesises their outputs, and produces a single CFO-ready variance report.
+Build the **FP&A Variance Autopilot** as a multi-agent orchestrator. This agent does not call tools directly — it delegates to the three sub-agents you built in Labs 2.2 and 2.4, synthesises their outputs, and produces a single CFO-ready variance report.
 
 By the end of this lab you will have:
 - The `FP&A Variance Autopilot` orchestrator active in Orchestrate
@@ -50,7 +50,7 @@ Before creating the orchestrator, verify all three sub-agents are active:
 
 | Agent name | Created in |
 |-----------|-----------|
-| `PA Data Agent` | Lab 2.3 |
+| `PA Data Agent` | Lab 2.2 |
 | `CRM Context Agent` | Lab 2.4 |
 | `ERP Context Agent` | Lab 2.4 |
 
@@ -302,7 +302,7 @@ The original `fpa-variance-agent.yaml` (in [`../assets/`](../assets/)) is a mono
 
 ## ✅ Checkpoint
 
-Before moving to Lab 2.6 (optional), confirm:
+Before moving to Lab 2.6, confirm:
 
 - [ ] `FP&A Variance Autopilot` orchestrator shows **Active** in Orchestrate
 - [ ] All 3 sub-agents appear under the **Agents** tab of the orchestrator
@@ -332,8 +332,6 @@ Before moving to Lab 2.6 (optional), confirm:
 
 ---
 
-## Next (Optional)
+## Next
 
-→ **[Lab 2.6 — Embed the Agent in an HTML Chat Interface](../lab-02-6-chat-embed/README.md)**
-
-Or return to the **[Lab 2 overview](../README.md)**.
+→ **[Lab 2.6 — AgentOps: Tracing & Evaluation](../lab-02-6-agentops/README.md)**

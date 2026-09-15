@@ -1,9 +1,10 @@
-# lab-02-7-adk — Get Started with watsonx Orchestrate ADK
+# Lab 2.8 — Get Started with watsonx Orchestrate ADK
 
 > **⚠️ Standalone bonus — not part of the core lab.**
 > Do not run this as part of the main Lab 2 flow. Work through this independently after the session, or if you have extra time after completing all core exercises.
 
-**Duration:** ~30 minutes
+**Duration:** ~30 minutes  
+**Prerequisite:** [Lab 2.5](../lab-02-5-orchestrator/README.md) ✅ (or completed core labs)  
 **Reference:** [Get started with watsonx Orchestrate ADK — IBM Developer](https://developer.ibm.com/learningpaths/get-started-watsonx-orchestrate/develop-agents-adk/)
 
 ---
@@ -30,7 +31,7 @@ The ADK gives developers full control to:
 
 ---
 
-## Step 7.1 — Check Python Version
+## Step 1 — Check Python Version
 
 The ADK requires **Python 3.11–3.13**. Check your version:
 
@@ -48,7 +49,7 @@ pip --version
 
 ---
 
-## Step 7.2 — Create a Virtual Environment
+## Step 2 — Create a Virtual Environment
 
 Create and activate a Python virtual environment to keep ADK dependencies isolated:
 
@@ -71,7 +72,7 @@ You should see `(venv)` prefixed in your terminal prompt.
 
 ---
 
-## Step 7.3 — Install the ADK
+## Step 3 — Install the ADK
 
 With the virtual environment active:
 
@@ -89,7 +90,7 @@ You should see a list of available ADK CLI commands.
 
 ---
 
-## Step 7.4 — Connect to Your watsonx Orchestrate Instance
+## Step 4 — Connect to Your watsonx Orchestrate Instance
 
 You need your instance's **Service Instance URL** and an **API Key**.
 
@@ -116,7 +117,7 @@ A confirmation message will appear showing the environment is created and activa
 
 ---
 
-## Step 7.5 — Define Your First Agent (Hello World)
+## Step 5 — Define Your First Agent (Hello World)
 
 Create a file named `hello-world-agent.yaml` with the following content:
 
@@ -137,7 +138,7 @@ tools: []
 
 ---
 
-## Step 7.6 — Import and Verify the Agent
+## Step 6 — Import and Verify the Agent
 
 Navigate to the directory containing your YAML file and import it:
 
@@ -158,7 +159,7 @@ Hello_World_Agent    A simple Hello World agent    active
 
 ---
 
-## Step 7.7 — Test the Agent in the Orchestrate UI
+## Step 7 — Test the Agent in the Orchestrate UI
 
 1. Go to your watsonx Orchestrate SaaS instance.
 2. Open the navigation menu (top-left) → **Build** → **Agent Builder**.
@@ -214,4 +215,8 @@ Now that your environment is set up and your first agent is running, here are wa
 
 ---
 
-[← Back to Lab 2 README](../README.md)
+## Navigation
+
+- [← Lab 2.7 (Optional) — Branded Chat Embed](../lab-02-7-chat-embed/README.md)
+- [← Lab 2 Overview](../README.md)
+- [→ Session 3 — Bring Your Own Scenario](../../session-03-your-scenario/README.md)

@@ -99,6 +99,6 @@ tools:
   - ibm-pa-tools-tz-cube:perform_outlier_detection
   - ibm-pa-tools-tz-cube:get_outlier_summary
 
-# Lab 2.3 — PA Data Agent
+# Lab 2.2 — PA Data Agent
 # Used as sub-agent by fpa-orchestrator-agent (Lab 2.5)
 # Made with IBM Bob — Planning Analytics × watsonx Orchestrate Workshop
