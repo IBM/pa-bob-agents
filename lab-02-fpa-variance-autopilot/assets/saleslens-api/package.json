@@ -16,7 +16,7 @@
     "swagger-ui-dist": "^5.32.8"
   },
   "devDependencies": {
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.0",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.0.2"
   },
